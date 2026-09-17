@@ -164,7 +164,12 @@ less than, greater than or equal to, and less than or equal to.
 Examples:
 
 ```{r}
+4 > 3
+5 < 6
 
+13*2 <= 38
+
+3 >= 2
 ```
 
 We can also make logical statements more complex by creating **and** and
@@ -201,7 +206,7 @@ sqrt(89)
 3.  Determine if 5 times 7 is less than or equal to 30 or if 4*8 is
     equal to 32
 ```{r}
-5*7 <= 30 || 4*8 == 32
+5*7 <= 30 | 4*8 == 32
 ```
     
 
@@ -221,7 +226,8 @@ writing small#:larger#, and would give you all of the numbers in
 between.
 
 ```{r}
-
+1:10
+10:1
 ```
 
 `rep()` allows you to repeat something a set number of times. Looking at
@@ -229,7 +235,8 @@ the help file, we can see the arguments contained in the function. To
 use it, we write `rep(thingToBeRepeated, #ofTimes)`.
 
 ```{r}
-
+rep("coffee", 2)
+rep(12, 2)
 ```
 
 **Note:** For functions, you can either write arguments in the order
@@ -237,22 +244,39 @@ listed in the help file (not labelled), or make sure you include the
 argument label.
 
 ```{r}
-
+rep(times = 3, x = "coffee")
 ```
 
 `seq()` gives you a sequence of numbers. typically, we use it by writing
 `seq(lowest#, highest#, by=#)`.
 
 ```{r}
-
+seq(0,10, 2)
+seq(from = 20, to = 0, by = -5)
 ```
 
 #### Learning Outcome 2 Practice:
 
 1.  Print every 5th number between 1 and 100.
+```{r}
+seq(1,100,5)
+```
+
 2.  Use code to write I love statistics 4 times.
+```{r}
+rep("I love statistics", 4)
+```
+
 3.  Repeat the numbers 1-10 twice
+```{r}
+rep(1:10, 2)
+```
+
 4.  Print every 3rd number from 1-20 3 times.
+```{r}
+rep(seq(1,20,3), 3)
+```
+
 
 ###Learning Outcome 3: Explain the differences between variables,
 vectors, and dataframes
