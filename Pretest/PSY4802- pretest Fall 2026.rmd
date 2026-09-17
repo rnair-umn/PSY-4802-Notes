@@ -1,0 +1,181 @@
+---
+title: "PSY 4802- Pretest Fall 2026"
+author: "Rohan Nair"
+date: "2026-09-15"
+output: pdf_document
+---
+
+# PSY 4802 Pretest
+
+The goal of this assignment is to help me understand our collective R programming knowledge. It is graded on attempt, not accuracy. Because of this, please answer honestly and skip any questions you are unsure of how to answer. If you have an idea of how to solve the problem, please write your thought process. I'll use everyone's answers to determine pacing of the course. 
+
+## Questions 
+
+**1. Evaluate the following expressions:** 
+
+**a) 4 minus 3 times 2**
+
+```{r}
+(4-3)*2
+```
+
+**b) the square root of 125 divided by five squared** 
+
+```{r}
+sqrt(125)/5^2
+```
+
+**c) find the sum of 7 and 6 and multiply by 13**
+
+```{r}
+(7+6)*13
+```
+
+**2) create variables that contain the following information:** 
+
+**a) a variable containing your favorite number**
+
+```{r}
+fav_num <- 8
+fav_num
+```
+
+**b) a list containing your top three favorite foods**
+
+```{r}
+fav_food <- list("Burger", "Pizza", "Milkshake")
+fav_food
+```
+
+**c) a vector with the numbers between 17 and 350**
+
+```{r}
+vector_1 <- c(17:350)
+vector_1
+```
+
+**d) a vector with odd numbers between 67 and 137**
+
+```{r}
+# Don't know
+```
+
+**e) a list with the words "I can do this" and "I can't do this" alternating six times**
+
+```{r}
+# Don't know
+```
+
+**3) Evaluate the following logical statements**
+
+**a) 3 times 4 is not equal to 6 plus 7**
+
+```{r}
+3*4 != 6+7
+```
+
+**b) 4 squared is greater than 3 and 5 is less than 9** 
+
+```{r}
+4^2 > 3 & 5 < 9
+```
+
+**c) 12 divided by 2 is less than 5 or 4 is greater than 3**
+
+```{r}
+12 / 2 < 5 | 4 > 3
+```
+
+**4) import the world happiness survey 2025 data (see assignment in R)**
+
+```{r}
+library(readr)
+worldhappinessreport2025 <- read_csv("worldhappinessreport2025.csv")
+```
+
+**5) print the column names in the dataset**
+
+```{r}
+colnames(worldhappinessreport2025)
+```
+
+**6) summarize the generosity column**
+
+```{r}
+summary(worldhappinessreport2025$generosity)
+```
+
+**7) find the average perceived corruption value**
+
+```{r}
+#mean(worldhappinessreport2025$perceptionsofCorruption)
+summary(worldhappinessreport2025$perceptionsofCorruption)
+```
+
+**8) Open the mtcars dataset**
+
+```{r}
+data("mtcars")
+head(mtcars)
+```
+
+**9) describe the data in the mtcars dataset**
+
+32 cars compared by things such as MPG, engine displacement, horsepower, and weight.
+
+**10) What kind of variable is present in the am column? How do you know?** 
+
+Probably a boolean because it is just 1 and 0 so it is likely a True/False category.
+
+**11) how many values are in the dataset?** 
+
+32 cars and 11 variables so 352
+
+**12) create a scatterplot of mpg vs hp**
+
+I used ggplot2 once, but I don't remember how. I tried using the suggested shortcuts but that didn't really work. I tried looking at the documentation, and then I realized I didn't want to didn't want to. I just used plot().
+
+```{r}
+#ggplot2::aes(mtcars$mpg,mtcars$hp)
+
+plot(mtcars$mpg, mtcars$hp, 
+     main = "MPG vs Horsepower", 
+     xlab = "Miles Per Gallon (MPG)", 
+     ylab = "Horsepower")
+```
+
+**13) Add a regression line to your graph in 12**
+
+```{r}
+#Don't know
+```
+
+**14) create a bar graph of the gear column**
+
+```{r}
+#Don't know
+```
+
+**15) open the chickweight dataset**
+
+```{r}
+data("ChickWeight")
+head(ChickWeight)
+```
+
+**16) What format is the chickweight dataset in?** 
+
+I do not know
+
+**17) create a subset of data for Chick 4**
+
+```{r}
+#Don't know
+```
+
+**18) change the chickweight dataset from long to wide**
+
+```{r}
+#Don't know
+```
+
