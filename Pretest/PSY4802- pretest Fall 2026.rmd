@@ -108,8 +108,8 @@ summary(worldhappinessreport2025$generosity)
 **7) find the average perceived corruption value**
 
 ```{r}
-#mean(worldhappinessreport2025$perceptionsofCorruption)
-summary(worldhappinessreport2025$perceptionsofCorruption)
+mean(worldhappinessreport2025$perceptionsofCorruption)
+#summary(worldhappinessreport2025$perceptionsofCorruption)
 ```
 
 **8) Open the mtcars dataset**

@@ -350,22 +350,37 @@ write `vectorName[position of thing]`
 preloaded datasets in R we can use to practice, such as mtcars:
 
 ```{r}
-
+data(mtcars)
 ```
 
 ### Practice:
 
 1)Make a vector with 6 animals
+```{r}
+animals <- c("bear", "monkey", "fish", "mouse", "elephant", "dog")
+```
+
 
 2)Make a vector of the number of cookies you think each animal could eat
+```{r}
+cookies <- c(30, 10, 0, 1, 50, 15)
+```
+
 
 We can also combine vectors into a dataframe using R functions
 (`cbind.data.frame()` or `rbind.data.frame()`). We'll use the vectors we
 made above as an example.
 
 ```{r}
-
+cookieDat <- cbind.data.frame(animals, cookies)
+cookieDat
 ```
+
+```{r}
+cookieRow <- rbind.data.frame(animals, cookies)
+cookieRow
+```
+
 
 Just like you can pick one thing in a vector, you can select one column
 or one row in a dataframe. You can use brackets like we did with
@@ -374,28 +389,49 @@ a column, you can write `dataframe[,column#]` and you can use
 `dataframe[row#,]`.
 
 ```{r}
+cookieDat[,1]
+cookieDat[1,]
 ```
 
 You can also get columns by using a `$`.
 
 ```{r}
+cookieDat$animals
 ```
 
 #### Learning Outcome 3 Practice:
 
 1.  Create a variable that contains your favorite ice cream flavor
-
+```{r}
+iceCream <- "vanilla"
+```
 
 2.  Create two vectors: 1 vector should contain the names of four TV
     shows and the 2nd vector should contain your ratings for those shows
+```{r}
+tvShows <- c("Psych", "American Dad!", "Community", "Severance")
+ratings <- c(10, 10, 9, 9.5)
+```
 
 3.  Make these vectors into a data frame.
+```{r}
+tvShowDat <- cbind.data.frame(show, rating)
+```
 
 4.  Print the information in the 2nd row.
+```{r}
+tvShowDat[2,]
+```
 
 5.  Print the information in the 2nd column.
+```{r}
+tvShowDat[,2]
+```
 
 Bonus: Print the information in the 3rd row, 1st column.
+```{r}
+tvShowDat[3,1]
+```
 
 
 ###Learning Outcome 4: Explain how to obtain a subset of your data
@@ -412,7 +448,7 @@ For instance, we could use indexing to get only cars in the mtcars
 dataset with 4 gears.
 
 ```{r}
-
+mtcars[mtcars$gear==4,]
 ```
 
 In this case, you'll notice that I put a comma after the logical
@@ -427,15 +463,30 @@ If we wanted to get the same subset of data as above, we could do the
 following:`subset(dataframe, condition)`
 
 ```{r}
+subset(mtcars, mtcars$cyl==6)
+```
 
+```{r}
+library(tidyverse)
+mtcars %>% filter(cyl==6)
 ```
 
 ## Practice:
 1. create a subset of data from mtcars that contains all cars with less than 25 mpg. 
+```{r}
+subset(mtcars, mtcars$mpg<25)
+```
 
 2. create a subset of data with all cars that have an automatic transmission
+```{r}
+subset(mtcars, mtcars$am==0)
+```
 
 3. create a subset of data with all cars that have at least  100 horsepower and 4 gears. 
+```{r}
+subset(mtcars, mtcars$hp<=100 & gear==4)
+#mtcars %>% filter (hp>=100, gear==4)
+```
 
 
 **A Note on Pipes (more advanced)** If not, we're going to talk about
@@ -464,25 +515,41 @@ We can use filter and select to subset data with pipes.
 We can use `filter()` to pick a subset of rows:
 
 ```{r}
-
+fourthGear <- mtcars %>% filter(gear==4)
 ```
 
 We can use `select()` to pick a subset of columns:
 
 ```{r}
+fourthGear %>% select(mpg, hp, am)
+```
 
+```{r}
+fourthGear2 <- 
 ```
 
 
 #### Learning Outcome 4 Practice:
 
 1.  Load the ChickWeight dataset.
+```{r}
+data("ChickWeight")
+```
 
 2.  Create a subset of data that contains information for Chick 8
+```{r}
+chickEight <- subset(ChickWeight, ChickWeight$Chick==8)
+```
 
 3.  Create a subset of data for Diet 2 only.
+```{r}
+dietTwo <- ChickWeight %>% filter(Diet==2)
+```
 
 4.  Create a subset of data for all chicks weighing less than 100 gm.
+```{r}
+smallChicks <- ChickWeight %>% filter(weight<100)
+```
 
 ### Learning Outcome 5: Describe your data effectively
 
@@ -496,12 +563,18 @@ of our data. they both use a similar format
 install ggplot if you haven't already!)
 
 ```{r}
-
+head(ChickWeight)
+head(ChickWeight, 1)
+tail(ChickWeight)
+tail(ChickWeight, 1)
 ```
 
 hypothetically, we have a dataset with 1000 rows. can we just get rows 50-100? 
 yes! 
 dataset[50:100,]
+```{r}
+ChickWeight[50:100,]
+```
 
 This lets us see just part of our data to make sure it loaded
 appropriately/is what we expect.
@@ -510,7 +583,7 @@ appropriately/is what we expect.
 `summary()`.
 
 ```{r}
-
+summary(ChickWeight)
 ```
 
 What do you notice about the summaries?
@@ -529,42 +602,63 @@ If we need the # of observations, we can use `length()` or `nrow()` to
 get this information.
 
 ```{r}
-
+length(ChickWeight$Diet)
+nrow(ChickWeight)
+length(ChickWeight) #Will only give the number of variables
 ```
 
 We can also take the average by using the function `mean()`.
 
 ```{r}
-
+mean(ChickWeight$weight)
 ```
 
 We can get the standard deviation using `sd()`.
 
 ```{r}
-
+sd(ChickWeight$weight)
 ```
 
 `var()`gives us the variance
 
 ```{r}
-
+var(ChickWeight$weight)
 ```
 
 `range()` gives us the range
 
 ```{r}
-
+range(ChickWeight$weight) #Gives min and max
+#To get actually range, one way is to save and then index
+rangeChick <- range(ChickWeight$weight)
+rangeChick[2] - rangeChick [1]
 ```
 
 ###Learning Outcome 5 Practice
 
 1.  Summarize the ChickWeight dataset
+```{r}
+summary(ChickWeight)
+```
 
 2.  Find the mean of the weight column
+```{r}
+mean(ChickWeight$weight)
+```
 
 3.  Summarize the data for just the 1st chick
+```{r}
+chickOne <- ChickWeight %>% filter(Chick==1)
+summary(chickOne)
+```
 
 4.  What is the variance of the 1st chick's weight?
+```{r}
+var(chickOne$weight)
+```
 
 5.  What is the range in weight for each chick posted in the dataset?
+```{r}
+for 
+```
 
