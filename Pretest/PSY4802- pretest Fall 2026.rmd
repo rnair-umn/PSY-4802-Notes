@@ -2,7 +2,7 @@
 title: "PSY 4802- Pretest Fall 2026"
 author: "Rohan Nair"
 date: "2026-09-15"
-output: pdf_document
+output: html_document
 ---
 
 # PSY 4802 Pretest
