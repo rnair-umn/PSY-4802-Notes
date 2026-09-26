@@ -659,6 +659,31 @@ var(chickOne$weight)
 
 5.  What is the range in weight for each chick posted in the dataset?
 ```{r}
-for 
+ChickWeight %>%
+  group_by(Chick) %>%
+  summarise(min_weight = min(weight),
+            max_weight = max(weight),
+            range_weight = max(weight) - min(weight))
+```
+
+With a for loop
+```{r}
+chick_ids <- unique(ChickWeight$Chick)
+
+chick_ranges <- numeric(length(chick_ids))
+names(chick_ranges) <- chick_ids
+
+for (i in seq_along(chick_ids)) {
+  current_chick <- chick_ids[i]
+  
+  chick_data <- ChickWeight[ChickWeight$Chick == current_chick, ]
+  
+  chick_ranges[i] <- max(chick_data$weight) - min(chick_data$weight)
+}
+
+chick_ranges_df <- tibble(
+  Chick = names(chick_ranges),
+  range_weight = chick_ranges
+)
 ```
 
