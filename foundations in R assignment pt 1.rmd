@@ -38,14 +38,64 @@ mean(experiment_data$score)
 # Using data frames 
 
 6. Open the penguins dataframe. Print the dataframe.  
+```{r}
+data("penguins")
+penguins
+```
+
 7. Create a subset of data for Adelie penguins. 
+```{r}
+adelie_penguins <- penguins %>% filter(species == "Adelie")
+```
+
 8. Summarize this subset of data. 
+```{r}
+summary(adelie_penguins)
+```
+
 8. Create a dataframe that contains penguins with a bill length greater than or equal to the average bill length. 
+```{r}
+summary(penguins$bill_length_mm) # 43.92
+long_bill_penguins <- penguins %>% filter(bill_length_mm >= 43.92)
+```
+
+Instead of using summary to bypass mean(), I passed the na.rm argument
+```{r}
+bill_length_mean <- mean(penguins$bill_length_mm, na.rm = TRUE)
+long_bill_penguins_2 <- penguins %>% filter(bill_length_mm >= bill_length_mean)
+```
+
 9. How many penguins are in this subset? 
+```{r}
+nrow(long_bill_penguins)
+```
+
 
 # More dataset use
 10. Load the tidyverse library if you haven't already done so.
-12. Create a new dataframe that has diamonds greater than 1 carat and an ideal cut. 
+```{r}
+library(tidyverse)
+```
+
+12. Create a new dataframe that has diamonds greater than 1 carat and an ideal cut.
+```{r}
+data("diamonds")
+diamond_data <- diamonds %>% filter(carat > 1, cut == "Ideal")
+```
+
 13. Find the mean and standard deviation of price for this new dataset. 
+```{r}
+mean(diamond_data$price) 
+sd(diamond_data$price)
+```
+
 14. Create another new dataframe from the original diamonds dataset that includes all diamonds with a price between $2500 and $5000. 
+```{r}
+mid_diamonds <- diamonds %>% filter(price >= 2500, price <= 5000)
+```
+
 15. Which color occurs most in this new subset? 
+```{r}
+mid_diamonds %>% count(color, sort = TRUE)
+```
+
