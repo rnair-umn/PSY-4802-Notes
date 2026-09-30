@@ -9,7 +9,15 @@ For your second R Assignment, complete the questions below. Remember, weekly ass
 
 # Set up
 1. Load the tidyverse library. 
+```{r}
+library(tidyverse)
+```
+
 2. Load the billboard data. 
+```{r}
+data("billboard")
+```
+
 3. Describe the dataset. 
 4. Print the column names from this dataset. 
 5. Print the first 5 entries in the dataset. 

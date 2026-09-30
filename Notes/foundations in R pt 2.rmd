@@ -34,25 +34,29 @@ You could print the dataframe repeatedly, but it's tedious. Here are some functi
 
 We'll use penguins to learn about: `colnames()`, `names()`, and 0 row
 ```{r}
-
+colnames(penguins)
+#rownames(penguins) returns the row names
+names(penguins)
 ```
 
 ### editing column names 
 `colnames()` returns all of the column names in a vector. So we can get column names using indexing as well. 
 ```{r}
-
+colnames(penguins)[1] <- 'Species of penguin'
 ```
 
 It **also** means that you can change names if necessary (when we talk about dataframe manipulation next week, this can become important.)
 `colnames(data)[position]`
 ```{r}
-colnames(penguins)
+colnames(penguins)[1] <- 'species'
 ```
 
 More often than not, we're using datasets that we either created or received from collaborators. That means that you may be dealing with problems **past you** graciously left you, different naming conventions, or even needing to manipulate variables that combine information. We'll talk about how to fix some of the more involved ones next week. For now, ones that may be helpful are making sure your column names are all lower case or all upper case. You can do this with the `toupper()` and `tolower()` functions:
 
 ```{r}
-tolower(penguins)
+colnames(penguins) <- toupper(colnames(penguins))
+
+colnames(penguins) <- tolower(colnames(penguins))
 ```
 
 ### Adding Column Names
@@ -61,20 +65,24 @@ dataframe$newColumn<- whatever you're assigning
 
 For instance, if you want to add a blank column:
 ```{r}
-
+penguins$amandas_favorite <- NA
 ```
 Then you can fill it with whatever information you want. 
 ```{r}
-
+penguins$amandas_favorite <- 'no'
 ```
 or you can fill the new column in based on other data in the dataframe
 ```{r}
-#chinstrap penguin jump
+penguins$amandas_favorite[penguins$species == "Adelie"] <- "yes"
+
+penguins$amandas_favorite[penguins$species != "Adelie"] <- "no"
 
 ```
 can do math to fill in the columns
 ```{r}
-
+penguins$big_penguin <- NA
+penguins$big_penguin[penguins$body_mass_g > mean(penguins$body_mass_g, na.rm = TRUE)] <- "yes"
+penguins$big_penguin[penguins$body_mass_g <= mean(penguins$body_mass_g, na.rm = TRUE)] <- "no"
 ```
 
 #### Learning Outcome 1 Practice: 
@@ -86,12 +94,14 @@ colnames(mtcars) <- toupper(colnames(mtcars))
 ```
 2. Change the name of the 9th column to reflect the values in the am column description
 ```{r}
-colnames(mtcars)[9] <- 'automatic'
-colnames(mtcars)[9] <- 'am'
+colnames(mtcars)[9] <- "automatic"
+colnames(mtcars)[9] <- "am"
+colnames(mtcars)[4] <- "hp"
 ```
 
 3. Change the 4th column name to all lowercase letters 
 ```{r}
+#colnames(mtcars)[4] <- tolower(colnames(mtcars)[4])
 colnames(mtcars) <- tolower(colnames(mtcars))
 ```
 
@@ -119,18 +129,27 @@ If you want to change the class of your variable, you can assign `as.Preferredcl
 
 ```{r}
 "is.classname"
-
+is.integer(penguins$body_mass_g)
+is.factor(penguins$body_mass_g)
 "as.classname"
+as.factor(penguins$body_mass_g)
+as.character(penguins$body_mass_g)
 #make a new column 
+penguins$factor_species <- as.factor(penguins$species)
+class(penguins$factor_species)
 
 # going from factor to numeric can cause issues and there's a specific way to do it
 ```
 **DOUBLE CHECK YOUR DATA**
 ```{r}
 penguins$body_mass_2 <- as.factor(penguins$body_mass_g)
-penguins$body_mass_g <- as.numeric(levels(penguins$body_mass_g)[penguins$body_mass_2])
+penguins$body_mass_2 <- as.numeric(penguins$body_mass_2)
 
-penguins %>% select(body_mass_g, body_mass_2)
+penguins$body_mass_3 <- as.factor(penguins$body_mass_g)
+penguins$body_mass_3 <- as.numeric(levels(penguins$body_mass_3)[penguins$body_mass_3])
+penguins %>%select(body_mass_g, body_mass_3)
+
+levels(penguins$species)
 ```
 
 ### Learning Outcome 2 Practice:
@@ -197,22 +216,26 @@ num_dat$plus_two <- add_two(num_dat$number)
 ## Practice:
 function to multiply by 7
 ```{r}
-
+multiply_seven <- function(num){
+  num * 7
+}
 ```
 test it out
 ```{r}
-
+multiply_seven(num_dat$number)
 ```
 
 Functions w/ characters
 **my favorite is**
 `paste()`
 ```{r}
-
+favorite_food <- function(food){
+  paste("My favorite food is", food)
+}
 ```
 test
 ```{r}
-
+favorite_food("spaghetti")
 ```
 
 ### Multiple argument functions
@@ -220,33 +243,40 @@ test
 We can make functions with more than one argument. For instance we could multiply all of the numbers in our original vector by a second vector 10-1
 
 ```{r}
-
+number_2 <- 10:1
+multiply_by <- function(num, num_2){
+  num * num_2
+}
 ```
 
 ```{r}
-
+multiply_by(number, number_2)
 ```
 
 ### Learning Outcome 3 Practice
 
 1. Make a function that divides numbers by 100. 
 ```{r}
-
+divide_one_hundred <- function(num){
+  num / 100
+}
 ```
 
 2. Test your function on the mtcars mpg column.
 ```{r}
-
+divide_one_hundred(mtcars$mpg)
 ```
 
 3. Make a function that finds the mean of a column and divides it by the standard deviation of another column.
 ```{r}
-
+divide_mean_sd <- function(column_1, column_2){
+  mean(column_1, na.rm = TRUE) / sd(column_2)
+}
 ```
 
 4. Test it on the mpg column and hp column. 
 ```{r}
-
+divide_mean_sd(mtcars$mpg, mtcars$hp)
 ```
 
 ## Learning Outcome 4: Create your own for loop
