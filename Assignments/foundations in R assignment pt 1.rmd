@@ -39,6 +39,7 @@ mean(experiment_data$score)
 
 6. Open the penguins dataframe. Print the dataframe.  
 ```{r}
+library(palmerpenguins)
 data("penguins")
 penguins
 ```
